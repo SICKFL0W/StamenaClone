@@ -7,10 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		058B58786715489682B5097D /* Kanit-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E18075CBF40E43DEBBB38BEB /* Kanit-Bold.ttf */; };
 		0C80B921A6F3F58F76C31292 /* libPods-StamenaClone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-StamenaClone.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		2C9001C62F2E0BE100F5817D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C9001C52F2E0BE100F5817D /* AVFoundation.framework */; };
+		2C9001CB2F2E521100F5817D /* repetition_end.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C9001C92F2E521100F5817D /* repetition_end.mp3 */; };
+		2C9001CC2F2E521100F5817D /* repetition.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C9001C82F2E521100F5817D /* repetition.mp3 */; };
+		2C9001CD2F2E521100F5817D /* workout_finish.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C9001CA2F2E521100F5817D /* workout_finish.mp3 */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		905A35C436004427B6D8799A /* Kanit-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DF47984C2F65485B86DED088 /* Kanit-Regular.ttf */; };
+		CD8B9B36E25F4C61AF56D346 /* Kanit-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 410DBEBEA6E645F2A9308D77 /* Kanit-SemiBold.ttf */; };
+		F1E9BCC8AFC553B7898A012B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		FFAC2EE7919D4889AF5E5481 /* Kanit-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CA38ABE964D448497322045 /* Kanit-Black.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,11 +27,19 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = StamenaClone/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = StamenaClone/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = StamenaClone/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		2C9001C52F2E0BE100F5817D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2C9001C82F2E521100F5817D /* repetition.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = repetition.mp3; sourceTree = "<group>"; };
+		2C9001C92F2E521100F5817D /* repetition_end.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = repetition_end.mp3; sourceTree = "<group>"; };
+		2C9001CA2F2E521100F5817D /* workout_finish.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = workout_finish.mp3; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-StamenaClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StamenaClone.debug.xcconfig"; path = "Target Support Files/Pods-StamenaClone/Pods-StamenaClone.debug.xcconfig"; sourceTree = "<group>"; };
+		410DBEBEA6E645F2A9308D77 /* Kanit-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Kanit-SemiBold.ttf"; path = "../assets/fonts/Kanit-SemiBold.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-StamenaClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StamenaClone.release.xcconfig"; path = "Target Support Files/Pods-StamenaClone/Pods-StamenaClone.release.xcconfig"; sourceTree = "<group>"; };
+		5CA38ABE964D448497322045 /* Kanit-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Kanit-Black.ttf"; path = "../assets/fonts/Kanit-Black.ttf"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-StamenaClone.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StamenaClone.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = StamenaClone/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = StamenaClone/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DF47984C2F65485B86DED088 /* Kanit-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Kanit-Regular.ttf"; path = "../assets/fonts/Kanit-Regular.ttf"; sourceTree = "<group>"; };
+		E18075CBF40E43DEBBB38BEB /* Kanit-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Kanit-Bold.ttf"; path = "../assets/fonts/Kanit-Bold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -31,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9001C62F2E0BE100F5817D /* AVFoundation.framework in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-StamenaClone.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,9 +56,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1019F410B0B2462CB0E4F98C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				410DBEBEA6E645F2A9308D77 /* Kanit-SemiBold.ttf */,
+				5CA38ABE964D448497322045 /* Kanit-Black.ttf */,
+				DF47984C2F65485B86DED088 /* Kanit-Regular.ttf */,
+				E18075CBF40E43DEBBB38BEB /* Kanit-Bold.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* StamenaClone */ = {
 			isa = PBXGroup;
 			children = (
+				2C9001C82F2E521100F5817D /* repetition.mp3 */,
+				2C9001C92F2E521100F5817D /* repetition_end.mp3 */,
+				2C9001CA2F2E521100F5817D /* workout_finish.mp3 */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				761780EC2CA45674006654EE /* AppDelegate.swift */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -53,6 +85,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C9001C52F2E0BE100F5817D /* AVFoundation.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-StamenaClone.a */,
 			);
@@ -74,6 +107,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				1019F410B0B2462CB0E4F98C /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -159,6 +193,14 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				F1E9BCC8AFC553B7898A012B /* PrivacyInfo.xcprivacy in Resources */,
+				2C9001CB2F2E521100F5817D /* repetition_end.mp3 in Resources */,
+				2C9001CC2F2E521100F5817D /* repetition.mp3 in Resources */,
+				2C9001CD2F2E521100F5817D /* workout_finish.mp3 in Resources */,
+				CD8B9B36E25F4C61AF56D346 /* Kanit-SemiBold.ttf in Resources */,
+				FFAC2EE7919D4889AF5E5481 /* Kanit-Black.ttf in Resources */,
+				905A35C436004427B6D8799A /* Kanit-Regular.ttf in Resources */,
+				058B58786715489682B5097D /* Kanit-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,9 +231,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-StamenaClone/Pods-StamenaClone-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-StamenaClone/Pods-StamenaClone-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -228,9 +274,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-StamenaClone/Pods-StamenaClone-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-StamenaClone/Pods-StamenaClone-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -258,6 +308,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3PQS6MVMU6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = StamenaClone/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -271,7 +322,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.filip.stamenaclone;
 				PRODUCT_NAME = StamenaClone;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -286,6 +337,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3PQS6MVMU6;
 				INFOPLIST_FILE = StamenaClone/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -298,7 +350,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.filip.stamenaclone;
 				PRODUCT_NAME = StamenaClone;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -366,6 +418,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -374,7 +427,10 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				USE_HERMES = true;
 			};
 			name = Debug;
 		};
@@ -431,6 +487,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -439,7 +496,9 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
