@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView, StyleSheet, Text, View, StatusBar, Dimensions, TouchableOpacity } from 'react-native';
 import Svg, { Circle, G } from 'react-native-svg';
 import { BounceButton } from '../BounceButton';
 import { useWorkout } from '../useWorkout';
 import { useSettings } from '../SettingsContext';
-
 
 const { width } = Dimensions.get('window');
 
@@ -20,12 +19,9 @@ const INNER_RADIUS = (INNER_SIZE - INNER_STROKE) / 2;
 const INNER_CIRCUMFERENCE = 2 * Math.PI * INNER_RADIUS;
 
 function HomeScreen() {
+  
+  const { stamenaLevel, totalPoints, addPoints, textCues, streak, markWorkoutComplete } = useSettings(); 
 
-  
-  const { stamenaLevel, totalPoints, textCues, streak } = useSettings(); 
-
-  
-  
   const { 
     isActive, isSqueezing, timeLeft, currentRep, toggleTimer, isFinished, progress,
     currentSetIndex, totalSets, currentSetLabel, totalRepsInSet,
@@ -34,8 +30,20 @@ function HomeScreen() {
     resetWorkout
   } = useWorkout();
 
-  const nextLevelPoints = stamenaLevel * 250;
-  
+  // --- LOGIKA PRO FINISH WORKOUT ---
+  // Sledujeme změnu "isFinished". Když se změní na true, přičteme 1 workout a započteme streak.
+  useEffect(() => {
+    if (isFinished) {
+      addPoints(1);        // <--- ZMĚNA: Přičítáme 1 (jeden workout)
+      markWorkoutComplete(); // Započítat streak
+    }
+  }, [isFinished]);
+
+  // Logika pro "Next Level" (jen vizuální, kolik chybí do dalšího levelu)
+  // Dejme tomu, že na každý level potřebuješ 10 workoutů (nebo si to nastav jak chceš)
+  const workoutsPerLevel = 10; 
+  const nextLevelGoal = stamenaLevel * workoutsPerLevel;
+
   const activeColor = isSqueezing ? "#C0392B" : "#27ae60";
   const trackColor = "#E5E5EA"; 
 
@@ -60,17 +68,18 @@ function HomeScreen() {
             <Text style={styles.headerTitle}>STAMENA</Text>
         </View>
 
-        {/* --- NOVÝ STATUS BAR (STREAKS & POINTS) --- */}
+        {/* --- NOVÝ STATUS BAR (STREAKS & WORKOUTS) --- */}
         <View style={styles.statsContainer}>
-          {/* BODY + NEXT LEVEL */}
+          
+          {/* WORKOUTS (Místo POINTS) */}
           <View style={styles.statBox}>
-             <Text style={styles.statLabel}>POINTS</Text>
+             <Text style={styles.statLabel}>WORKOUTS</Text>
              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Text style={{fontSize: 14, marginRight: 2}}>💎</Text>
+                <Text style={{fontSize: 14, marginRight: 4}}>✅</Text> 
                 <Text style={styles.statValue}>{totalPoints}</Text>
              </View>
-             {/* Tady je ten nový malý text */}
-             <Text style={styles.statSubText}>Goal: {nextLevelPoints}</Text>
+             {/* Ukazuje kolik chybí do dalšího "milníku" */}
+             <Text style={styles.statSubText}>Goal: {nextLevelGoal}</Text>
           </View>
 
           {/* LEVEL */}
@@ -88,7 +97,6 @@ function HomeScreen() {
                     {streak}
                 </Text>
             </View>
-            {/* Tady může být taky malý text pro motivaci */}
             <Text style={styles.statSubText}>{streak > 0 ? 'Keep it up!' : 'Start today'}</Text>
           </View>
         </View>
@@ -184,7 +192,7 @@ function HomeScreen() {
                   )}
               </View>
 
-              {/* --- NOVÝ SPODNÍ ŘÁDEK (END vlevo, ČAS vpravo) --- */}
+              {/* --- SPODNÍ ŘÁDEK (END vlevo, ČAS vpravo) --- */}
               <View style={styles.bottomControlsRow}>
                 
                 {/* Tlačítko END (vlevo) */}
@@ -193,7 +201,7 @@ function HomeScreen() {
                    <Text style={styles.stopButtonText}>END</Text>
                 </BounceButton>
 
-                {/* Total Time (vpravo) - přesunuto sem */}
+                {/* Total Time (vpravo) */}
                 <View style={styles.totalTimeRight}>
                   <Text style={styles.totalTimeLabel}>TOTAL TIME</Text>
                   <Text style={styles.totalTimeValue}>{formattedTotalTime}</Text>
@@ -204,8 +212,6 @@ function HomeScreen() {
 
             </View>
           ) : null}
-          
-          {/* POZOR: Tu původní část s {isInSession && ... totalTimeContainer ...} pod tímto blokem úplně SMAŽ! */}
 
         </View>
       </SafeAreaView>
@@ -223,12 +229,11 @@ const styles = StyleSheet.create({
   statBoxCenter: { borderLeftWidth: 1, borderRightWidth: 1, borderColor: '#eee' },
   statLabel: { fontSize: 10, color: '#999', fontFamily: 'Kanit-Bold', marginBottom: 2 }, 
   statValue: { fontSize: 18, fontFamily: 'Kanit-SemiBold', color: '#333' },
-  // PŘIDAT TOTO:
   statSubText: {
     fontSize: 10,
     fontFamily: 'Kanit-Regular',
     color: '#999',
-    marginTop: 2, // Malá mezera od čísla
+    marginTop: 2, 
   },
   statValueBig: { fontSize: 24, fontFamily: 'Kanit-Bold', color: '#C0392B' },
   
@@ -238,7 +243,6 @@ const styles = StyleSheet.create({
   restartButton: { backgroundColor: '#27ae60' },
   startButtonText: { color: 'white', fontSize: 20, fontFamily: 'Kanit-Bold', letterSpacing: 2 }, 
   
-  //stopButton: { marginTop: 25, padding: 10, alignItems: 'center' },
   stopIcon: { fontSize: 30, marginBottom: 5 },
   stopButtonText: { color: '#999', fontSize: 12, fontFamily: 'Kanit-Bold', letterSpacing: 1 },
 
@@ -259,30 +263,27 @@ const styles = StyleSheet.create({
   tapToResume: { fontSize: 14, fontFamily: 'Kanit-Regular', color: '#999', marginTop: 10 },
 
   bottomInfo: { marginTop: 40, alignItems: 'center', height: 80 },
-  // --- NOVÉ STYLY PRO SPODNÍ ŘÁDEK ---
+  
   bottomControlsRow: {
-    flexDirection: 'row',       // Dát vedle sebe
-    justifyContent: 'space-between', // Roztáhnout do krajů
-    alignItems: 'flex-end',     // Zarovnat na spodek
+    flexDirection: 'row',      
+    justifyContent: 'space-between', 
+    alignItems: 'flex-end',     
     width: '100%',
-    paddingHorizontal: 30,      // Odsazení od krajů obrazovky
+    paddingHorizontal: 30,      
     marginTop: 10,
   },
 
   stopButtonLeft: {
-    alignItems: 'center',       // Ikona a text na střed sebe
-    // Už žádný marginTop, řídí to řádek
+    alignItems: 'center',      
   },
 
   totalTimeRight: {
-    alignItems: 'flex-end',     // Text zarovnat doprava
-    // Už žádné position: 'absolute'
+    alignItems: 'flex-end',     
   },
   repText: { fontSize: 20, fontFamily: 'Kanit-Bold', color: '#333' },
   setInfoText: { fontSize: 16, fontFamily: 'Kanit-Regular', color: '#999', marginTop: 10 },
   typeText: { fontSize: 22, fontFamily: 'Kanit-Bold', color: '#C0392B', marginTop: 2 }, 
 
-  //totalTimeContainer: { position: 'absolute', bottom: 110, right: 30, alignItems: 'flex-end' },
   totalTimeLabel: { fontSize: 10, color: '#999', fontFamily: 'Kanit-Bold', textTransform: 'uppercase' },
   totalTimeValue: { fontSize: 20, color: '#333', fontFamily: 'Kanit-SemiBold', fontVariant: ['tabular-nums'] }
 });
