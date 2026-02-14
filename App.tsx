@@ -13,14 +13,14 @@ import { SettingsProvider } from './SettingsContext';
 import { SplashScreen } from './screens/SplashScreen';
 
 // --- NASTAVENÍ NOTIFIKACÍ ---
-// Oprava chyby: Musíme definovat všechny vlastnosti chování
+// Toto určuje, jak se má systém chovat, když přijde notifikace v momentě, kdy je aplikace aktivní.
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: true,
     shouldSetBadge: false,
-    shouldShowBanner: true, // <--- PŘIDÁNO (Oprava TS chyby)
-    shouldShowList: true,   // <--- PŘIDÁNO (Oprava TS chyby)
+    shouldShowBanner: true, 
+    shouldShowList: true,   
   }),
 });
 
@@ -59,12 +59,26 @@ const CustomTabBarButton = ({ children, onPress }: any) => (
 export default function App() {
   const [isAppReady, setIsAppReady] = useState(false);
 
-  // --- ZÁMEK ORIENTACE NA PORTRAIT ---
   useEffect(() => {
-    async function lockOrientation() {
+    async function prepareApp() {
+      // 1. ZÁMEK ORIENTACE NA PORTRAIT
       await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+
+      // 2. ŽÁDOST O OPRÁVNĚNÍ K NOTIFIKACÍM
+      // Tento krok je nezbytný pro fungování naplánovaných připomínek.
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      
+      if (finalStatus !== 'granted') {
+        console.log('Oprávnění k notifikacím nebylo uděleno!');
+      }
     }
-    lockOrientation();
+    
+    prepareApp();
   }, []);
 
   return (
@@ -75,7 +89,7 @@ export default function App() {
 
       <NavigationContainer>
         <Tab.Navigator
-        initialRouteName="Exercise"
+          initialRouteName="Exercise"
           screenOptions={{
             headerShown: false,
             tabBarShowLabel: false,
@@ -115,7 +129,7 @@ export default function App() {
             name="Exercise" 
             component={HomeScreen} 
             options={{
-              tabBarIcon: ({ focused }) => (
+              tabBarIcon: () => (
                 <Text style={{fontSize: 30, marginBottom: 2}}>💪</Text>
               ),
               tabBarButton: (props) => (
