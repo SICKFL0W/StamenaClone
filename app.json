@@ -1,4 +1,13 @@
 {
   "name": "StamenaClone",
-  "displayName": "StamenaClone"
+  "displayName": "StamenaClone",
+  "android": {
+    "package": "com.anonymous.stamenaclone"
+  },
+  "ios": {
+    "bundleIdentifier": "com.anonymous.stamenaclone"
+  },
+  "plugins": [
+    "@react-native-community/datetimepicker"
+  ]
 }

@@ -18,9 +18,13 @@ const INNER_STROKE = 10;
 const INNER_RADIUS = (INNER_SIZE - INNER_STROKE) / 2;
 const INNER_CIRCUMFERENCE = 2 * Math.PI * INNER_RADIUS;
 
+// UNIFIKOVANÝ FONT
+const HEADER_TITLE_SIZE = 22;
+const HEADER_HEIGHT = 55;
+
 function HomeScreen() {
   
-  const { stamenaLevel, totalPoints, addPoints, textCues, streak, markWorkoutComplete } = useSettings(); 
+  const { stamenaLevel, completedWorkouts, textCues, streak, markWorkoutComplete } = useSettings(); 
 
   const { 
     isActive, isSqueezing, timeLeft, currentRep, toggleTimer, isFinished, progress,
@@ -31,64 +35,55 @@ function HomeScreen() {
   } = useWorkout();
 
   // --- LOGIKA PRO FINISH WORKOUT ---
-  // Sledujeme změnu "isFinished". Když se změní na true, přičteme 1 workout a započteme streak.
   useEffect(() => {
     if (isFinished) {
-      addPoints(1);        // <--- ZMĚNA: Přičítáme 1 (jeden workout)
-      markWorkoutComplete(); // Započítat streak
+      markWorkoutComplete(); 
     }
   }, [isFinished]);
 
-  // Logika pro "Next Level" (jen vizuální, kolik chybí do dalšího levelu)
-  // Dejme tomu, že na každý level potřebuješ 10 workoutů (nebo si to nastav jak chceš)
-  const workoutsPerLevel = 10; 
-  const nextLevelGoal = stamenaLevel * workoutsPerLevel;
-
+  const nextLevelGoal = stamenaLevel * 10;
   const activeColor = isSqueezing ? "#C0392B" : "#27ae60";
   const trackColor = "#E5E5EA"; 
-
   const segmentLength = OUTER_CIRCUMFERENCE / totalSets;
   const gapLength = 10; 
   const dashLength = segmentLength - gapLength;
   const startRotation = -90;
   const currentRotation = (360 / totalSets) * (currentSetIndex - 1);
-
   const isPaused = !isActive && !isFinished && !isCountingDown && (currentRep > 1 || currentSetIndex > 1 || progress > 0);
   const isInSession = isActive || isCountingDown || isPaused;
 
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#C0392B" />
-      {/* ČERVENÝ VRŠEK PRO NOTCH */}
+      
+      {/* 1. FIXNÍ ČERVENÁ ČÁST PRO NOTCH */}
       <SafeAreaView style={{ flex: 0, backgroundColor: '#C0392B' }} />
       
+      {/* 2. HLAVNÍ KONTEJNER */}
       <SafeAreaView style={styles.container}>
 
+        {/* UNIFIKOVANÁ HLAVIČKA */}
         <View style={styles.header}>
             <Text style={styles.headerTitle}>STAMENA</Text>
         </View>
 
-        {/* --- NOVÝ STATUS BAR (STREAKS & WORKOUTS) --- */}
+        {/* --- STATUS BAR (STREAKS & WORKOUTS) --- */}
         <View style={styles.statsContainer}>
           
-          {/* WORKOUTS (Místo POINTS) */}
           <View style={styles.statBox}>
              <Text style={styles.statLabel}>WORKOUTS</Text>
              <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Text style={{fontSize: 14, marginRight: 4}}>✅</Text> 
-                <Text style={styles.statValue}>{totalPoints}</Text>
+                <Text style={styles.statValue}>{completedWorkouts}</Text>
              </View>
-             {/* Ukazuje kolik chybí do dalšího "milníku" */}
              <Text style={styles.statSubText}>Goal: {nextLevelGoal}</Text>
           </View>
 
-          {/* LEVEL */}
           <View style={[styles.statBox, styles.statBoxCenter]}>
             <Text style={styles.statLabel}>LEVEL</Text>
             <Text style={styles.statValueBig}>{stamenaLevel}</Text>
           </View>
 
-          {/* STREAK */}
           <View style={styles.statBox}>
             <Text style={styles.statLabel}>STREAK</Text>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -100,8 +95,8 @@ function HomeScreen() {
             <Text style={styles.statSubText}>{streak > 0 ? 'Keep it up!' : 'Start today'}</Text>
           </View>
         </View>
-        {/* ----------------------------------------- */}
-
+        
+        {/* ZBYTEK OBSAHU */}
         <View style={styles.centerContent}>
           
           {!isInSession && !isFinished ? (
@@ -135,8 +130,6 @@ function HomeScreen() {
             <View style={styles.timerWrapper}>
               
               <TouchableOpacity onPress={toggleTimer} activeOpacity={0.9} style={styles.circlesContainer}>
-                  
-                  {/* PIZZA KRUH */}
                   <View style={styles.outerCircleContainer}>
                     <Svg width={OUTER_SIZE} height={OUTER_SIZE}>
                       <G rotation={startRotation} origin={`${OUTER_SIZE / 2}, ${OUTER_SIZE / 2}`}>
@@ -148,7 +141,6 @@ function HomeScreen() {
                     </Svg>
                   </View>
 
-                  {/* VNITŘNÍ KRUH */}
                   <View style={styles.innerCircleContainer}>
                     <Svg width={INNER_SIZE} height={INNER_SIZE}>
                       <G rotation="-90" origin={`${INNER_SIZE / 2}, ${INNER_SIZE / 2}`}>
@@ -158,7 +150,6 @@ function HomeScreen() {
                     </Svg>
                   </View>
                     
-                  {/* TEXT UVNITŘ */}
                   <View style={styles.absoluteCenter}>
                         {isPaused ? (
                             <>
@@ -174,7 +165,6 @@ function HomeScreen() {
                                 ) : (
                                     <View style={{height: 20}} /> 
                                 )}
-                                
                                 <Text style={styles.timerText}>{timeLeft}</Text>
                             </>
                         )}
@@ -183,7 +173,6 @@ function HomeScreen() {
 
               <View style={styles.bottomInfo}>
                   <Text style={styles.repText}>Rep {currentRep} / {totalRepsInSet}</Text>
-                  
                   {textCues && (
                       <View style={{alignItems: 'center'}}>
                         <Text style={styles.setInfoText}>Set {currentSetIndex} of {totalSets}</Text>
@@ -192,23 +181,16 @@ function HomeScreen() {
                   )}
               </View>
 
-              {/* --- SPODNÍ ŘÁDEK (END vlevo, ČAS vpravo) --- */}
               <View style={styles.bottomControlsRow}>
-                
-                {/* Tlačítko END (vlevo) */}
                 <BounceButton onPress={resetWorkout} style={styles.stopButtonLeft}>
                    <Text style={styles.stopIcon}>⏹️</Text> 
                    <Text style={styles.stopButtonText}>END</Text>
                 </BounceButton>
-
-                {/* Total Time (vpravo) */}
                 <View style={styles.totalTimeRight}>
                   <Text style={styles.totalTimeLabel}>TOTAL TIME</Text>
                   <Text style={styles.totalTimeValue}>{formattedTotalTime}</Text>
                 </View>
-
               </View>
-              {/* ------------------------------------------------- */}
 
             </View>
           ) : null}
@@ -221,20 +203,34 @@ function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFFFFF' },
-  header: { backgroundColor: '#C0392B', height: 50, justifyContent: 'center', alignItems: 'center' },
-  headerTitle: { color: 'white', fontSize: 20, fontFamily: 'Kanit-Bold', letterSpacing: 1 }, 
+  
+  // UNIFIKOVANÉ STYLY HLAVIČKY
+  header: { 
+    backgroundColor: '#C0392B', 
+    height: HEADER_HEIGHT, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 3,
+    zIndex: 10
+  },
+  headerTitle: { 
+    color: 'white', 
+    fontSize: HEADER_TITLE_SIZE, 
+    fontFamily: 'Kanit-Bold', 
+    letterSpacing: 1.5,
+    textTransform: 'uppercase'
+  }, 
 
   statsContainer: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 15, paddingHorizontal: 20, borderBottomWidth: 1, borderBottomColor: '#f0f0f0', backgroundColor: '#fff' },
   statBox: { alignItems: 'center', width: width / 3.5 },
   statBoxCenter: { borderLeftWidth: 1, borderRightWidth: 1, borderColor: '#eee' },
   statLabel: { fontSize: 10, color: '#999', fontFamily: 'Kanit-Bold', marginBottom: 2 }, 
   statValue: { fontSize: 18, fontFamily: 'Kanit-SemiBold', color: '#333' },
-  statSubText: {
-    fontSize: 10,
-    fontFamily: 'Kanit-Regular',
-    color: '#999',
-    marginTop: 2, 
-  },
+  statSubText: { fontSize: 10, fontFamily: 'Kanit-Regular', color: '#999', marginTop: 2 },
   statValueBig: { fontSize: 24, fontFamily: 'Kanit-Bold', color: '#C0392B' },
   
   centerContent: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingBottom: 80 }, 
@@ -263,27 +259,12 @@ const styles = StyleSheet.create({
   tapToResume: { fontSize: 14, fontFamily: 'Kanit-Regular', color: '#999', marginTop: 10 },
 
   bottomInfo: { marginTop: 40, alignItems: 'center', height: 80 },
-  
-  bottomControlsRow: {
-    flexDirection: 'row',      
-    justifyContent: 'space-between', 
-    alignItems: 'flex-end',     
-    width: '100%',
-    paddingHorizontal: 30,      
-    marginTop: 10,
-  },
-
-  stopButtonLeft: {
-    alignItems: 'center',      
-  },
-
-  totalTimeRight: {
-    alignItems: 'flex-end',     
-  },
+  bottomControlsRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', width: '100%', paddingHorizontal: 30, marginTop: 10 },
+  stopButtonLeft: { alignItems: 'center' },
+  totalTimeRight: { alignItems: 'flex-end' },
   repText: { fontSize: 20, fontFamily: 'Kanit-Bold', color: '#333' },
   setInfoText: { fontSize: 16, fontFamily: 'Kanit-Regular', color: '#999', marginTop: 10 },
   typeText: { fontSize: 22, fontFamily: 'Kanit-Bold', color: '#C0392B', marginTop: 2 }, 
-
   totalTimeLabel: { fontSize: 10, color: '#999', fontFamily: 'Kanit-Bold', textTransform: 'uppercase' },
   totalTimeValue: { fontSize: 20, color: '#333', fontFamily: 'Kanit-SemiBold', fontVariant: ['tabular-nums'] }
 });

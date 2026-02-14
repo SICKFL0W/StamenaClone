@@ -3,6 +3,6 @@
   "compilerOptions": {
     "types": ["jest"],
   },
-  "include": ["**/*.ts", "**/*.tsx", "useWorkout.js"],
+  "include": ["**/*.ts", "**/*.tsx", "useWorkout.ts"],
   "exclude": ["**/node_modules", "**/Pods"]
 }

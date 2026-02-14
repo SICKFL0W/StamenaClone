@@ -1,18 +1,23 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View, StatusBar } from 'react-native';
 
+// UNIFIKOVANÉ KONSTANTY (SHODNÉ S HOME A SETTINGS)
+const HEADER_TITLE_SIZE = 22;
+const HEADER_HEIGHT = 55;
+
 const InstructionsScreen = () => {
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#C0392B" />
-      {/* 1. ČERVENÝ VRŠEK PRO NOTCH */}
+      
+      {/* 1. FIXNÍ ČERVENÁ ČÁST PRO NOTCH */}
       <SafeAreaView style={{ flex: 0, backgroundColor: '#C0392B' }} />
 
-      {/* 2. ZBYTEK (Šedé pozadí pro kontrast karet) */}
+      {/* 2. ZBYTEK */}
       <SafeAreaView style={styles.container}>
         
+        {/* UNIFIKOVANÁ HLAVIČKA */}
         <View style={styles.header}>
-          {/* Změněno na Kanit a bílou barvu */}
           <Text style={styles.headerTitle}>HOW TO MASTER IT</Text>
         </View>
 
@@ -62,23 +67,25 @@ const InstructionsScreen = () => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F2F2F7' },
   
-  // Header upraven na červenou
+  // UNIFIKOVANÉ STYLY HLAVIČKY
   header: { 
-    padding: 15, 
     backgroundColor: '#C0392B', 
+    height: HEADER_HEIGHT, // Fixní výška 55
+    justifyContent: 'center', 
     alignItems: 'center',
-    justifyContent: 'center',
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.1, // Sjednoceno s ostatními (bylo 0.2)
     shadowRadius: 2,
-    elevation: 5
+    elevation: 3,
+    zIndex: 10
   },
   headerTitle: { 
-    fontSize: 20, 
-    fontFamily: 'Kanit-Bold', // Použijeme náš font
-    color: '#fff',            // Bílá barva na červeném
-    letterSpacing: 1
+    fontSize: HEADER_TITLE_SIZE, // Velikost 22
+    fontFamily: 'Kanit-Bold', 
+    color: '#fff',            
+    letterSpacing: 1.5, // Sjednocený rozestup
+    textTransform: 'uppercase'
   },
   
   content: { padding: 20 },
@@ -102,7 +109,7 @@ const styles = StyleSheet.create({
   },
   analogy: { 
     fontSize: 24, 
-    fontFamily: 'Kanit-Black', // Extra tučné pro "Stop Pissing"
+    fontFamily: 'Kanit-Black', 
     color: '#333', 
     marginBottom: 10, 
     fontStyle: 'italic' 
@@ -121,7 +128,7 @@ const styles = StyleSheet.create({
     marginTop: 4 
   },
   
-  // Info Box (Zelený)
+  // Info Box
   infoBox: { 
     backgroundColor: '#E8F6F3', 
     padding: 20, 

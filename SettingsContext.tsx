@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as Notifications from 'expo-notifications'; // <--- DŮLEŽITÝ IMPORT
+import * as Notifications from 'expo-notifications'; 
 
-// Definice typů
 type SettingsContextType = {
   godMode: boolean;
   setGodMode: (val: boolean) => void;
@@ -20,8 +19,14 @@ type SettingsContextType = {
   pointNotifs: boolean;
   setPointNotifs: (val: boolean) => void;
   
-  totalPoints: number;
-  addPoints: (amount: number) => void;
+  // NOVÉ: Vlastní texty notifikací
+  notifTitle: string;
+  setNotifTitle: (val: string) => void;
+  notifBody: string;
+  setNotifBody: (val: string) => void;
+
+  completedWorkouts: number;
+  
   streak: number;
   markWorkoutComplete: () => void;
 
@@ -33,6 +38,10 @@ type SettingsContextType = {
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
 
+// Výchozí hodnoty (Stock)
+const DEFAULT_TITLE = "Time to Grind! 💪";
+const DEFAULT_BODY = "Don't break the chain. Your daily workout is waiting.";
+
 export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // --- STATE ---
   const [godMode, setGodMode] = useState(false);
@@ -43,47 +52,85 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   
   const [workoutNotifs, setWorkoutNotifs] = useState(true);
   const [pointNotifs, setPointNotifs] = useState(true);
+
+  // NOVÉ STATE PRO TEXTY
+  const [notifTitle, setNotifTitle] = useState(DEFAULT_TITLE);
+  const [notifBody, setNotifBody] = useState(DEFAULT_BODY);
   
-  const [totalPoints, setTotalPoints] = useState(0);
+  const [completedWorkouts, setCompletedWorkouts] = useState(0);
+  
   const [streak, setStreak] = useState(0); 
   const [lastWorkoutDate, setLastWorkoutDate] = useState<string | null>(null);
   
+  const [lastWorkoutTimestamp, setLastWorkoutTimestamp] = useState<number | null>(null);
+
   const [reminders, setReminders] = useState<Date[]>([
-    new Date(new Date().setHours(20, 0, 0, 0)) 
+    new Date(new Date().setHours(18, 0, 0, 0)) 
   ]);
 
   const [isLoading, setIsLoading] = useState(true);
 
-  // --- HELPER: Přeplánování notifikací (DENNĚ) ---
-  const rescheduleNotifications = async (currentReminders: Date[], isEnabled: boolean) => {
-    // 1. Smažeme staré
+  // --- FUNKCE NA PLÁNOVÁNÍ NOTIFIKACÍ ---
+  const rescheduleNotifications = async (
+    currentReminders: Date[], 
+    isEnabled: boolean,
+    lastWorkoutTime: number | null,
+    title: string, // Přijímáme aktuální title
+    body: string   // Přijímáme aktuální body
+  ) => {
+    // 1. Smažeme vše
     await Notifications.cancelAllScheduledNotificationsAsync();
 
-    // Pokud vypnuto, končíme
     if (!isEnabled) return;
 
-    // 2. Naplánujeme nové
+    const { status } = await Notifications.requestPermissionsAsync();
+    if (status !== 'granted') return;
+
+    // 2. Naplánujeme standardní denní připomínky (S VLASTNÍM TEXTEM)
     for (const date of currentReminders) {
       const triggerHour = date.getHours();
       const triggerMinute = date.getMinutes();
 
       await Notifications.scheduleNotificationAsync({
         content: {
-          title: "Time to Grind! 💪",
-          body: "Don't break the chain. Your daily workout is waiting.",
+          title: title, // Použijeme vlastní
+          body: body,   // Použijeme vlastní
           sound: true,
         },
-        // ZMĚNA ZDE: Přidáme přetypování "as ...", aby TypeScript neřval
         trigger: {
           hour: triggerHour,
           minute: triggerMinute,
-          repeats: true,
+          repeats: true, 
         } as any, 
       });
     }
+
+    // 3. DYNAMICKÁ "PANIC" NOTIFIKACE (23 hodin od posledního tréninku)
+    // Panic mode necháme "hardcoded", aby to bylo výstražné, nebo můžeme taky customizovat.
+    // Pro teď necháme systémovou výstrahu.
+    if (lastWorkoutTime) {
+        const panicTime = lastWorkoutTime + (23 * 60 * 60 * 1000); 
+        const now = Date.now();
+        const secondsUntilPanic = (panicTime - now) / 1000;
+
+        if (secondsUntilPanic > 0) {
+            await Notifications.scheduleNotificationAsync({
+                content: {
+                    title: "⚠️ STREAK RISK ⚠️",
+                    body: "It's been almost 24h since your last workout! Don't break the rhythm!",
+                    sound: true,
+                    priority: Notifications.AndroidNotificationPriority.HIGH,
+                },
+                trigger: {
+                    seconds: secondsUntilPanic, 
+                    repeats: false 
+                } as any,
+            });
+        }
+    }
   };
 
-  // --- 1. NAČTENÍ DAT + KONTROLA STREAKU ---
+  // --- 1. NAČTENÍ DAT ---
   useEffect(() => {
     const loadSettings = async () => {
       try {
@@ -98,41 +145,35 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           if (parsed.audioCues !== undefined) setAudioCues(parsed.audioCues);
           if (parsed.workoutNotifs !== undefined) setWorkoutNotifs(parsed.workoutNotifs);
           if (parsed.pointNotifs !== undefined) setPointNotifs(parsed.pointNotifs);
-          if (parsed.totalPoints !== undefined) setTotalPoints(parsed.totalPoints);
           
-          // Reminders
+          // Načtení textů
+          if (parsed.notifTitle !== undefined) setNotifTitle(parsed.notifTitle);
+          if (parsed.notifBody !== undefined) setNotifBody(parsed.notifBody);
+
+          if (parsed.completedWorkouts !== undefined) setCompletedWorkouts(parsed.completedWorkouts);
+          
           if (parsed.reminders && Array.isArray(parsed.reminders)) {
             setReminders(parsed.reminders.map((d: string) => new Date(d)));
           }
 
-          // --- LOGIKA STREAKU PŘI STARTU ---
-          // Zkontrolujeme, jestli uběhlo více než 1 den od posledního cvičení
+          if (parsed.lastWorkoutTimestamp) {
+              setLastWorkoutTimestamp(parsed.lastWorkoutTimestamp);
+          }
+
           let loadedStreak = parsed.streak || 0;
           const loadedLastDate = parsed.lastWorkoutDate || null;
           
           if (loadedLastDate) {
-            const today = new Date();
-            const last = new Date(loadedLastDate);
-            
-            // Rozdíl ve dnech
-            const diffTime = Math.abs(today.getTime() - last.getTime());
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-            
-            // Pokud je rozdíl větší než 1 den (např. 2 dny nečvičil), a dneska ještě necvičil
-            // POZN: Porovnáváme stringy data, abychom ošetřili "dnes"
-            const todayStr = today.toISOString().split('T')[0];
-            
-            if (todayStr !== loadedLastDate) {
-                // Pokud poslední trénink nebyl včera (ale dýl), resetujeme streak
-                // Hledáme "včera"
-                const yesterday = new Date();
-                yesterday.setDate(yesterday.getDate() - 1);
-                const yesterdayStr = yesterday.toISOString().split('T')[0];
+            const todayStr = new Date().toISOString().split('T')[0];
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayStr = yesterday.toISOString().split('T')[0];
 
-                if (loadedLastDate !== yesterdayStr) {
-                    loadedStreak = 0; // BROKEN STREAK
-                }
+            if (loadedLastDate !== todayStr && loadedLastDate !== yesterdayStr) {
+                loadedStreak = 0; 
             }
+          } else {
+             loadedStreak = 0;
           }
 
           setStreak(loadedStreak);
@@ -144,57 +185,65 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     loadSettings();
   }, []);
 
-  // --- 2. UKLÁDÁNÍ DAT + AUTOMATICKÉ NOTIFIKACE ---
+  // --- 2. UKLÁDÁNÍ DAT ---
   useEffect(() => {
     if (isLoading) return;
 
-    const saveAndSchedule = async () => {
+    const saveSettings = async () => {
       try {
         const dataToSave = {
           godMode, stamenaLevel, textCues, vibrationCues, audioCues, 
-          workoutNotifs, pointNotifs, totalPoints, reminders,
-          streak, lastWorkoutDate
+          workoutNotifs, pointNotifs, 
+          notifTitle, notifBody, // Ukládáme texty
+          completedWorkouts, 
+          reminders,
+          streak, lastWorkoutDate, lastWorkoutTimestamp 
         };
         await AsyncStorage.setItem('APP_SETTINGS', JSON.stringify(dataToSave));
-        
-        // PŘEPLÁNOVAT NOTIFIKACE PŘI KAŽDÉ ZMĚNĚ
-        // Pokud se změní reminders nebo workoutNotifs, funkce se spustí
-        if (workoutNotifs) {
-            await rescheduleNotifications(reminders, true);
-        } else {
-            await Notifications.cancelAllScheduledNotificationsAsync();
-        }
-
       } catch (e) { console.error(e); }
     };
 
-    saveAndSchedule();
-  }, [godMode, stamenaLevel, textCues, vibrationCues, audioCues, workoutNotifs, pointNotifs, totalPoints, reminders, streak, lastWorkoutDate, isLoading]);
-
-  // --- LOGIKA ---
-  
-  const addPoints = (amount: number) => {
-    setTotalPoints(prev => prev + amount);
-  };
-
-  const markWorkoutComplete = () => {
-    const today = new Date().toISOString().split('T')[0];
-
-    if (lastWorkoutDate === today) {
-      return; // Dnes už hotovo
+    saveSettings();
+    
+    // Přeplánování při jakékoliv změně relevantních dat
+    if (workoutNotifs) {
+        rescheduleNotifications(reminders, true, lastWorkoutTimestamp, notifTitle, notifBody);
+    } else {
+        Notifications.cancelAllScheduledNotificationsAsync();
     }
+
+  }, [godMode, stamenaLevel, textCues, vibrationCues, audioCues, workoutNotifs, pointNotifs, notifTitle, notifBody, completedWorkouts, reminders, streak, lastWorkoutDate, lastWorkoutTimestamp, isLoading]);
+
+
+  // --- LOGIKA DOKONČENÍ WORKOUTU ---
+  const markWorkoutComplete = () => {
+    const now = new Date();
+    const todayStr = now.toISOString().split('T')[0];
+    const currentTimestamp = now.getTime();
+
+    setLastWorkoutTimestamp(currentTimestamp);
+
+    if (workoutNotifs) {
+        rescheduleNotifications(reminders, true, currentTimestamp, notifTitle, notifBody);
+    }
+
+    if (lastWorkoutDate === todayStr) {
+      return; 
+    }
+
+    setCompletedWorkouts(prev => prev + 1);
 
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     const yesterdayStr = yesterday.toISOString().split('T')[0];
 
     if (lastWorkoutDate === yesterdayStr) {
-      setStreak(prev => prev + 1); // Navázal na včerejšek
+      setStreak(prev => prev + 1); 
     } else {
-      setStreak(1); // Začíná od znova
+      setStreak(1); 
     }
 
-    setLastWorkoutDate(today);
+    setLastWorkoutDate(todayStr);
   };
 
   const addReminder = () => {
@@ -222,7 +271,12 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       audioCues, setAudioCues,
       workoutNotifs, setWorkoutNotifs,
       pointNotifs, setPointNotifs,
-      totalPoints, addPoints,
+      
+      notifTitle, setNotifTitle,
+      notifBody, setNotifBody,
+
+      completedWorkouts, 
+      
       streak, markWorkoutComplete, 
       reminders, addReminder, removeReminder, updateReminderTime
     }}>
