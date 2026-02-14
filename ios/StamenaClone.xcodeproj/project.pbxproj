@@ -3,12 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		17FFCE6B2B6253A0DED26EA9 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CF8CF5837A5E057154F7AC90 /* PrivacyInfo.xcprivacy */; };
+		2C68339C2F3FFD3C00E76EA8 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C68339B2F3FFD3C00E76EA8 /* main.jsbundle */; };
+		2C6833E32F400AB800E76EA8 /* Kanit-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C6833E02F400AB800E76EA8 /* Kanit-Bold.ttf */; };
+		2C6833E42F400AB800E76EA8 /* Kanit-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C6833E22F400AB800E76EA8 /* Kanit-SemiBold.ttf */; };
+		2C6833E52F400AB800E76EA8 /* Kanit-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C6833DF2F400AB800E76EA8 /* Kanit-Black.ttf */; };
+		2C6833E62F400AB800E76EA8 /* Kanit-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C6833E12F400AB800E76EA8 /* Kanit-Regular.ttf */; };
+		2C6833EA2F400CEE00E76EA8 /* repetition_end.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C6833E82F400CEE00E76EA8 /* repetition_end.mp3 */; };
+		2C6833EB2F400CEE00E76EA8 /* workout_finish.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C6833E92F400CEE00E76EA8 /* workout_finish.mp3 */; };
+		2C6833EC2F400CEE00E76EA8 /* repetition.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C6833E72F400CEE00E76EA8 /* repetition.mp3 */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 		DC29B8F71EACA351A7B0671A /* libPods-StamenaClone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26486034D5F0AA72D58E4DE0 /* libPods-StamenaClone.a */; };
@@ -21,6 +29,14 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = StamenaClone/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = StamenaClone/Info.plist; sourceTree = "<group>"; };
 		26486034D5F0AA72D58E4DE0 /* libPods-StamenaClone.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-StamenaClone.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C68339B2F3FFD3C00E76EA8 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		2C6833DF2F400AB800E76EA8 /* Kanit-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-Black.ttf"; sourceTree = "<group>"; };
+		2C6833E02F400AB800E76EA8 /* Kanit-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-Bold.ttf"; sourceTree = "<group>"; };
+		2C6833E12F400AB800E76EA8 /* Kanit-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-Regular.ttf"; sourceTree = "<group>"; };
+		2C6833E22F400AB800E76EA8 /* Kanit-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Kanit-SemiBold.ttf"; sourceTree = "<group>"; };
+		2C6833E72F400CEE00E76EA8 /* repetition.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = repetition.mp3; sourceTree = "<group>"; };
+		2C6833E82F400CEE00E76EA8 /* repetition_end.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = repetition_end.mp3; sourceTree = "<group>"; };
+		2C6833E92F400CEE00E76EA8 /* workout_finish.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = workout_finish.mp3; sourceTree = "<group>"; };
 		63898BD4C5FA4E82F01C0BB6 /* Pods-StamenaClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StamenaClone.debug.xcconfig"; path = "Target Support Files/Pods-StamenaClone/Pods-StamenaClone.debug.xcconfig"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = StamenaClone/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
@@ -31,6 +47,10 @@
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = StamenaClone/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* StamenaClone-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "StamenaClone-Bridging-Header.h"; path = "StamenaClone/StamenaClone-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		2C6833D12F40027D00E76EA8 /* assets */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = assets; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
@@ -54,6 +74,13 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
 				CF8CF5837A5E057154F7AC90 /* PrivacyInfo.xcprivacy */,
+				2C6833DF2F400AB800E76EA8 /* Kanit-Black.ttf */,
+				2C6833E02F400AB800E76EA8 /* Kanit-Bold.ttf */,
+				2C6833E12F400AB800E76EA8 /* Kanit-Regular.ttf */,
+				2C6833E22F400AB800E76EA8 /* Kanit-SemiBold.ttf */,
+				2C6833E72F400CEE00E76EA8 /* repetition.mp3 */,
+				2C6833E82F400CEE00E76EA8 /* repetition_end.mp3 */,
+				2C6833E92F400CEE00E76EA8 /* workout_finish.mp3 */,
 			);
 			name = StamenaClone;
 			sourceTree = "<group>";
@@ -85,6 +112,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				2C68339B2F3FFD3C00E76EA8 /* main.jsbundle */,
+				2C6833D12F40027D00E76EA8 /* assets */,
 				13B07FAE1A68108700A75B9A /* StamenaClone */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -143,13 +172,15 @@
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
-				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
 				8B87586A856B209216320975 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				2C6833D12F40027D00E76EA8 /* assets */,
 			);
 			name = StamenaClone;
 			productName = StamenaClone;
@@ -192,8 +223,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C6833EA2F400CEE00E76EA8 /* repetition_end.mp3 in Resources */,
+				2C6833EB2F400CEE00E76EA8 /* workout_finish.mp3 in Resources */,
+				2C6833EC2F400CEE00E76EA8 /* repetition.mp3 in Resources */,
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
+				2C6833E32F400AB800E76EA8 /* Kanit-Bold.ttf in Resources */,
+				2C6833E42F400AB800E76EA8 /* Kanit-SemiBold.ttf in Resources */,
+				2C6833E52F400AB800E76EA8 /* Kanit-Black.ttf in Resources */,
+				2C6833E62F400AB800E76EA8 /* Kanit-Regular.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				2C68339C2F3FFD3C00E76EA8 /* main.jsbundle in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
 				17FFCE6B2B6253A0DED26EA9 /* PrivacyInfo.xcprivacy in Resources */,
 			);
@@ -202,23 +241,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/.xcode.env",
-				"$(SRCROOT)/.xcode.env.local",
-			);
-			name = "Bundle React Native code and images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n# The project root by default is one level up from the ios directory\nexport PROJECT_ROOT=\"$PROJECT_DIR\"/..\n\nif [[ \"$CONFIGURATION\" = *Debug* ]]; then\n  export SKIP_BUNDLING=1\nfi\nif [[ -z \"$ENTRY_FILE\" ]]; then\n  # Set the entry JS file using the bundler's entry resolution.\n  export ENTRY_FILE=\"$(\"$NODE_BINARY\" -e \"require('expo/scripts/resolveAppEntry')\" \"$PROJECT_ROOT\" ios absolute | tail -n 1)\"\nfi\n\nif [[ -z \"$CLI_PATH\" ]]; then\n  # Use Expo CLI\n  export CLI_PATH=\"$(\"$NODE_BINARY\" --print \"require.resolve('@expo/cli', { paths: [require.resolve('expo/package.json')] })\")\"\nfi\nif [[ -z \"$BUNDLE_COMMAND\" ]]; then\n  # Default Expo CLI command for bundling\n  export BUNDLE_COMMAND=\"export:embed\"\nfi\n\n# Source .xcode.env.updates if it exists to allow\n# SKIP_BUNDLING to be unset if needed\nif [[ -f \"$PODS_ROOT/../.xcode.env.updates\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.updates\"\nfi\n# Source local changes to allow overrides\n# if needed\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n`\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\"`\n\n";
-		};
 		05C42BD1819B4517F0AE96DD /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
