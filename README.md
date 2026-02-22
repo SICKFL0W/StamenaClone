@@ -1,49 +1,56 @@
-# StamenaClone 💪
+# StamenaClone 💪 | React Native Fitness App
 
-> Open-source iOS aplikace pro sledování a vylepšování tvé staminy a kegelových cviků. Žádné předplatné, žádné reklamy, prostě čistý trénink.
+> Open-source iOS aplikace (Health & Fitness) zaměřená na sledování tréninkových intervalů a budování každodenních návyků. Žádné předplatné, žádné reklamy, 100% offline.
 
-## 📖 O co jde?
-StamenaClone je projekt postavený v React Native. Slouží jako vylepšená, bezplatná alternativa k populárním aplikacím na trénink staminy. Aplikace tě provede sekvencemi cviků (Squeeze, Relax, Push Out) s přesným časovačem a pomůže ti vybudovat každodenní návyk pomocí zabudované gamifikace.
+## 📖 O projektu & Moje motivace (The 16-Hour Build)
+Tento projekt vznikl jako osobní výzva: **Dokážu se naučit nový technologický stack a doručit funkční iOS MVP za méně než 24 hodin?** Aplikaci jsem kompletně navrhl, naprogramoval a nasadil na reálné zařízení za **16 hodin čistého času vývoje**. K dosažení této rychlosti jsem masivně využíval moderní AI coding asistenty, což mi umožnilo přeskočit zdlouhavé psaní boilerplate kódu a soustředit se výhradně na složitou byznys logiku (state management, intervalové časovače) a UI/UX.
 
-## ✨ Hlavní funkce
-* **Precizní Workout Timer:** Vizuální i textové pokyny pro každou vteřinu tvého tréninku.
-* **Levelovací systém:** Každý dokončený workout tě posouvá blíž k dalšímu levelu.
-* **Streaks (Série) 🔥:** Aplikace hlídá, jestli cvičíš každý den. Vynecháš? Padáš na nulu.
-* **Rest Timer & Přestávky:** Přizpůsobitelné pauzy mezi jednotlivými sety.
-* **100% Offline & Free:** Všechna data se ukládají jen do tvého telefonu.
+### 🛠️ Tech Stack
+* **Framework:** React Native / Expo
+* **Jazyk:** TypeScript (pro typovou bezpečnost a čistší kód)
+* **AI Tooling:** AI asistované programování (Cursor / LLM modely) pro rapid prototyping
+* **Deployment:** Kompilace přes Xcode, sideloading přes AltStore
 
-## 📸 Screenshoty
-*(Tady přetáhni screenshoty přímo z Macu do GitHub editoru, on z nich sám udělá linky)*
+## ✨ Technické výzvy & Funkce
+Nejde jen o obyčejné stopky. Aplikace na pozadí řeší komplexní správu stavu:
+* **Komplexní State Management:** Aplikace tě provede sekvencemi (Squeeze, Relax, Push Out) s vizuálními i textovými pokyny, kde každá vteřina musí být perfektně synchronizovaná.
+* **Gamifikace & Logika:** Vlastní levelovací systém a výpočet "Streaks" (sérií). Aplikace detekuje vynechané dny a na základě toho upravuje uživatelský stav.
+* **Local Storage:** 100% Offline řešení. Veškerá uživatelská data se ukládají bezpečně a lokálně.
+
+## 📸 Screenshoty UI
+*(Tady přetáhni screenshoty přímo z Macu do GitHub editoru)*
 
 | Domovská obrazovka | Během Workoutu |
 | :---: | :---: |
-| ![Zástupný text 1](link-na-tvuj-screen-1) | ![Zástupný text 2](link-na-tvuj-screen-2) |
+| ![Home](link-na-tvuj-screen-1) | ![Workout](link-na-tvuj-screen-2) |
 
 ---
 
-## 🚀 Instalace (Nejjednodušší cesta)
-Nemáš Mac nebo nechceš řešit kompilaci kódu? Nevadí! Aplikaci si můžeš nahrát rovnou do iPhonu pomocí `.ipa` souboru a AltStore.
+## 🚀 Instalace (Sideloading přes AltStore)
+Jelikož se jedná o neoficiální build bez App Store distribuce, aplikace využívá `.ipa` sideloading.
 
 ### Co budeš potřebovat:
 1. Počítač s nainstalovaným **AltServerem**.
-2. Aplikaci **AltStore** ve svém iPhonu ([Návod na instalaci AltStore](https://altstore.io/)).
+2. Aplikaci **AltStore** ve svém iPhonu ([Návod na instalaci](https://altstore.io/)).
 3. Stažený soubor `Stamena.ipa` z tohoto repozitáře.
 
 ### Postup instalace:
-1. Přejdi do záložky **[Releases](../../releases)** (nebo si stáhni `Stamena.ipa` přímo ze souborů nahoře).
-2. Pošli si stažený `.ipa` soubor do iPhonu (např. přes AirDrop nebo si ho stáhni přímo v Safari na mobilu).
-3. Otevři aplikaci **AltStore** na svém iPhonu.
-4. Dole klikni na záložku **My Apps**.
-5. Klikni na tlačítko **+** v levém horním rohu.
-6. Najdi a vyber stažený soubor `Stamena.ipa`.
-7. AltStore aplikaci podepíše a nainstaluje *(ujisti se, že jsi na stejné Wi-Fi jako tvůj počítač s běžícím AltServerem)*.
-8. **Hotovo!** Aplikaci najdeš na ploše. Nezapomeň ji v AltStore každých 7 dní "refresnout".
+1. Přejdi do záložky **[Releases](../../releases)** a stáhni si `Stamena.ipa`.
+2. Pošli si soubor do iPhonu.
+3. V aplikaci **AltStore** přejdi do záložky **My Apps** a klikni na **+**.
+4. Vyber stažený `.ipa` soubor. AltStore aplikaci podepíše tvým Apple ID a nainstaluje *(vyžaduje připojení na stejnou Wi-Fi jako počítač)*.
 
 ---
 
 ## 💻 Pro vývojáře (Build ze zdrojáků)
-Pokud si chceš aplikaci upravit nebo buildnout sám přes Xcode:
+Pro lokální spuštění nebo úpravy kódu:
 
-1. Naklonuj si repozitář:
-   ```bash
-   git clone [https://github.com/SICKFLOW/StamenaClone.git](https://github.com/SICKFLOW/StamenaClone.git)
+```bash
+# 1. Naklonuj si repozitář:
+git clone [https://github.com/SICKFLOW/StamenaClone.git](https://github.com/SICKFLOW/StamenaClone.git)
+
+# 2. Nainstaluj závislosti:
+npm install
+
+# 3. Spusť lokální vývojový server (Expo):
+npx expo start
