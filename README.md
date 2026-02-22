@@ -8,7 +8,7 @@ Tento projekt vznikl jako osobní výzva: **Dokážu se naučit nový technologi
 ### 🛠️ Tech Stack
 * **Framework:** React Native / Expo
 * **Jazyk:** TypeScript (pro typovou bezpečnost a čistší kód)
-* **AI Tooling:** AI asistované programování (Cursor / LLM modely) pro rapid prototyping
+* **AI Tooling:** AI asistované programování (Gemini / LLM modely) pro rapid prototyping
 * **Deployment:** Kompilace přes Xcode, sideloading přes AltStore
 
 ## ✨ Technické výzvy & Funkce
