@@ -20,11 +20,11 @@ Nejde jen o obyčejné stopky. Aplikace na pozadí řeší komplexní správu st
 ## 📸 Screenshoty UI
 *(Tady přetáhni screenshoty přímo z Macu do GitHub editoru)*
 
-| Domovská obrazovka | Během Workoutu |
-| :---: | :---: |
+| Domovská obrazovka |
 <img width="585" height="1266" alt="IMG_3499" src="https://github.com/user-attachments/assets/4348833f-0132-4be9-a831-b906c91ef819" />
-) | (<img width="585" height="1266" alt="IMG_3597" src="https://github.com/user-attachments/assets/9ddde3f8-1143-4533-80eb-e979328ddc4c" />
-) |
+
+| Během Workoutu |
+(<img width="585" height="1266" alt="IMG_3597" src="https://github.com/user-attachments/assets/9ddde3f8-1143-4533-80eb-e979328ddc4c" />
 
 ---
 
