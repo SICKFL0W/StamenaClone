@@ -19,8 +19,8 @@ It's not just a simple stopwatch. In the backgorund he app handles:
 
 ## 📸 UI Screenshots
 
-<img width="292" height="63" alt="IMG_3499" src="https://github.com/user-attachments/assets/4348833f-0132-4be9-a831-b906c91ef819" />
-<img width="292" height="63" alt="IMG_3597" src="https://github.com/user-attachments/assets/9ddde3f8-1143-4533-80eb-e979328ddc4c" />
+<img width="292" height="630" alt="IMG_3499" src="https://github.com/user-attachments/assets/4348833f-0132-4be9-a831-b906c91ef819" />
+<img width="292" height="630" alt="IMG_3597" src="https://github.com/user-attachments/assets/9ddde3f8-1143-4533-80eb-e979328ddc4c" />
 
 ---
 
